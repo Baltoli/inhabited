@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Habits{% endblock %}</h1>
+  <a class="action" href="{{ url_for('habits.create') }}">New</a>
+{% endblock %}
+
+{% block content %}
+  {% for habit in habits %}
+    {{ habit.name }}
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

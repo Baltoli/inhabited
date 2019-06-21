@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Habit{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="name">Name</label>
+    <input name="name" id="name" value="{{ request.form['name'] }}" required>
+
+    <label for="period">Period</label>
+    <input name="period" id="period" type="number" value="{{ request.form['period'] }}" required>
+
+    <input type="submit" value="Create">
+  </form>
+{% endblock %}
