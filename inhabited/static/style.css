@@ -24,5 +24,10 @@ nav > ul > li {
   align-items: center;
 }
 
-.habit > a {
+.habit-name {
+  margin-right: 1em;
+}
+
+.habit-info {
+  display: flex;
 }
