@@ -9,9 +9,9 @@
   {% for habit in habits %}
     <div class="habit">
       <h2>{{ habit.name }}</h2>
-      {% if not loop.last %}
-        <hr>
-      {% endif %}
+      <a class="action" href="{{ url_for('habits.update', id=habit.id) }}">Edit</a>
     </div>
+    {% if not loop.last %}
+    {% endif %}
   {% endfor %}
 {% endblock %}
