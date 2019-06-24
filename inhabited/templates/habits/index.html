@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  Habits
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Habits{% endblock %}</h1>
-  <a class="action" href="{{ url_for('habits.create') }}">New</a>
 {% endblock %}
 
 {% block content %}

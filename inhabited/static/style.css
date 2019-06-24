@@ -17,3 +17,12 @@ nav > ul > li {
   display: block;
   margin-right: 1em;
 }
+
+.habit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.habit > a {
+}
