@@ -7,9 +7,11 @@
 
 {% block content %}
   {% for habit in habits %}
-    {{ habit.name }}
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
+    <div class="habit">
+      <h2>{{ habit.name }}</h2>
+      {% if not loop.last %}
+        <hr>
+      {% endif %}
+    </div>
   {% endfor %}
 {% endblock %}
