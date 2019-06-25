@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  Habits
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Habits{% endblock %}</h1>
-  <a class="action" href="{{ url_for('habits.create') }}">New</a>
 {% endblock %}
 
 {% block content %}
   {% for habit in habits %}
     <div class="habit">
-      <h2>{{ habit.name }}</h2>
+      <div class="habit-info">
+        <div class="habit-name">{{ habit.name }}</div>
+        <div class="habit-period">{{ habit.period }} days</div>
+      </div>
       <a class="action" href="{{ url_for('habits.update', id=habit.id) }}">Edit</a>
     </div>
     {% if not loop.last %}

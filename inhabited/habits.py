@@ -14,7 +14,7 @@ def index():
     db = get_db()
 
     habits = db.execute(
-        'SELECT id, name '
+        'SELECT id, name, period '
         'FROM habit WHERE user_id = ?',
         (g.user['id'],)
     ).fetchall()
