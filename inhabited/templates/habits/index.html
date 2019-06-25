@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-  {% for habit in habits %}
+  {% for habit, completions in data %}
     <div class="habit">
       <div class="habit-info">
         <div class="habit-name">

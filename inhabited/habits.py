@@ -3,6 +3,8 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
+from datetime import datetime
+
 from inhabited.auth import login_required
 from inhabited.db import get_db
 
@@ -19,7 +21,17 @@ def index():
         (g.user['id'],)
     ).fetchall()
 
-    return render_template('habits/index.html', habits=habits)
+    completions = [db.execute(
+        'SELECT * FROM completion WHERE '
+        ' habit_id = ?',
+        (h['id'],)
+    ).fetchall() for h in habits]
+
+    # Do the conversion logic here to turn timestamps into completion data -
+    # probably will need a separate module in which I do these conversions based
+    # on the current date, then pass to the templating engine etc
+
+    return render_template('habits/index.html', data=zip(habits, completions))
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
