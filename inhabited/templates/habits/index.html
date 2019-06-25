@@ -11,8 +11,12 @@
   {% for habit in habits %}
     <div class="habit">
       <div class="habit-info">
-        <div class="habit-name">{{ habit.name }}</div>
-        <div class="habit-period">{{ habit.period }} days</div>
+        <div class="habit-name">
+          {{ habit.name }}
+        </div>
+        <div class="habit-period">
+          {{ habit.period }} days
+        </div>
       </div>
       <a class="action" href="{{ url_for('habits.update', id=habit.id) }}">Edit</a>
     </div>

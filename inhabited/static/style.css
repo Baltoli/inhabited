@@ -1,10 +1,23 @@
+/*
+ * Set up the page body to be responsive and not to get too wide on big screens,
+ * remaining centered in those cases.
+ */
 body {
+  max-width: 960px;
+  margin: auto;
+}
+
+@media (max-width: 960px) {
+  body {
+    margin: 1em;
+  }
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 nav > ul {
@@ -15,13 +28,14 @@ nav > ul {
 nav > ul > li {
   float: left;
   display: block;
-  margin-right: 1em;
+  padding-left: 1em;
 }
 
 .habit {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 0.4em;
 }
 
 .habit-name {
