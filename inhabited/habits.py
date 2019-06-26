@@ -16,7 +16,7 @@ def index():
     db = get_db()
 
     habits = db.execute(
-        'SELECT id, name, period '
+        'SELECT id, name '
         'FROM habit WHERE user_id = ?',
         (g.user['id'],)
     ).fetchall()
@@ -38,23 +38,19 @@ def index():
 def create():
     if request.method == 'POST':
         name = request.form['name']
-        period = request.form['period']
         error = None
 
         if not name:
             error = 'Name is required'
-
-        if not period:
-            error = 'Period is required'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO habit (name, period, user_id) '
-                'VALUES (?, ?, ?)',
-                (name, period, g.user['id'])
+                'INSERT INTO habit (name, user_id) '
+                'VALUES (?, ?)',
+                (name, g.user['id'])
             )
             db.commit()
             return redirect(url_for('habits.index'))
@@ -63,7 +59,7 @@ def create():
 
 def get_habit(id):
     habit = get_db().execute(
-        'SELECT h.id, name, period, user_id, u.username '
+        'SELECT h.id, name, user_id, u.username '
         ' FROM habit h JOIN user u ON h.user_id = u.id'
         ' WHERE h.id = ?',
         (id,)
@@ -84,23 +80,19 @@ def update(id):
 
     if request.method == 'POST':
         name = request.form['name']
-        period = request.form['period']
         error = None
 
         if not name:
             error = 'Name is required'
-
-        if not period:
-            error = 'Period is required'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'UPDATE habit SET name = ?, period = ?'
+                'UPDATE habit SET name = ?'
                 ' WHERE id = ?',
-                (name, period, id)
+                (name, id)
             )
             db.commit()
             return redirect(url_for('habits.index'))
