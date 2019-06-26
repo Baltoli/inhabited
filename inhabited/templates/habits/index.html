@@ -8,13 +8,28 @@
 {% endblock %}
 
 {% block content %}
-  {% for habit, completions in data %}
+  {% for habit, periods in data %}
     <div class="habit">
       <div class="habit-info">
         <div class="habit-name">
           {{ habit.name }}
         </div>
       </div>
+
+      <div class="habit-days">
+        {% for pc in periods %}
+          {% if pc %}
+            <span class="habit-success">
+              yes
+            </span>
+          {% else %}
+            <span class="habit-failure">
+              no
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
       <a class="action" href="{{ url_for('habits.update', id=habit.id) }}">Edit</a>
     </div>
     {% if not loop.last %}

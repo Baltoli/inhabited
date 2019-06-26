@@ -7,6 +7,7 @@ from datetime import datetime
 
 from inhabited.auth import login_required
 from inhabited.db import get_db
+from inhabited.completions import completed_periods
 
 bp = Blueprint('habits', __name__)
 
@@ -23,15 +24,21 @@ def index():
 
     completions = [db.execute(
         'SELECT * FROM completion WHERE '
-        ' habit_id = ?',
+        ' habit_id = ?'
+        ' ORDER BY timestamp DESC',
         (h['id'],)
     ).fetchall() for h in habits]
+
+    periods = [
+        completed_periods(10, c)
+        for c in completions
+    ]
 
     # Do the conversion logic here to turn timestamps into completion data -
     # probably will need a separate module in which I do these conversions based
     # on the current date, then pass to the templating engine etc
 
-    return render_template('habits/index.html', data=zip(habits, completions))
+    return render_template('habits/index.html', data=zip(habits, periods))
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
