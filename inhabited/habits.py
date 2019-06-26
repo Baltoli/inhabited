@@ -7,7 +7,7 @@ from datetime import datetime
 
 from inhabited.auth import login_required
 from inhabited.db import get_db
-from inhabited.completions import completed_periods
+from inhabited.completions import completed_periods, is_today
 
 bp = Blueprint('habits', __name__)
 
@@ -114,3 +114,13 @@ def delete(id):
     db.execute('DELETE FROM habit WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('habits.index'))
+
+def completed_today(habit_id):
+    h = get_habit(id)
+    db = get_db()
+    ts = db.execute(
+        'SELECT timestamp FROM completions '
+        ' WHERE habit_id = ?'
+        ' ORDER BY timestamp DESC'
+    ).fetchone()['timestamp']
+    return is_today(ts)

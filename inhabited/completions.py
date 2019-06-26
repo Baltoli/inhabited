@@ -8,3 +8,7 @@ from datetime import date
 #   correct day
 def completed_periods(n, completions):
     return [False] * n
+
+def is_today(ts):
+    d = date.fromtimestamp(ts)
+    return d == date.today()
