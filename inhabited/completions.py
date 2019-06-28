@@ -1,3 +1,4 @@
+import calendar
 from datetime import date
 
 # Get the completion info for the last n days.
@@ -12,3 +13,12 @@ def completed_periods(n, completions):
 def is_today(ts):
     d = date.fromtimestamp(ts)
     return d == date.today()
+
+def to_timestamp(dt):
+    """Converts a datetime object to UTC timestamp
+
+    naive datetime will be considered UTC.
+
+    """
+
+    return calendar.timegm(dt.utctimetuple())

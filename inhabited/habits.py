@@ -7,7 +7,7 @@ from datetime import datetime
 
 from inhabited.auth import login_required
 from inhabited.db import get_db
-from inhabited.completions import completed_periods, is_today
+from inhabited.completions import completed_periods, is_today, to_timestamp
 
 bp = Blueprint('habits', __name__)
 
@@ -124,3 +124,16 @@ def completed_today(habit_id):
         ' ORDER BY timestamp DESC'
     ).fetchone()['timestamp']
     return is_today(ts)
+
+@bp.route('/<int:id>/complete', methods=('POST',))
+@login_required
+def complete(id):
+    get_habit(id)
+    db = get_db()
+    db.execute(
+        'INSERT INTO completion (habit_id, timestamp)'
+        ' VALUES (?, ?)',
+        (id, to_timestamp(datetime.now()))
+    )
+    db.commit()
+    return redirect(url_for('habits.index'))
