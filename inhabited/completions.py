@@ -1,5 +1,5 @@
 import calendar
-from datetime import date
+from datetime import date, datetime
 
 # Get the completion info for the last n days.
 # This means that we:
@@ -10,9 +10,15 @@ from datetime import date
 def completed_periods(n, completions):
     return [True] * n
 
+def completed_on(day, completions):
+    pass
+
 def is_today(ts):
     d = date.fromtimestamp(ts)
     return d == date.today()
+
+def to_datetime(dt):
+    return datetime(d.year, d.month, d.day)
 
 def to_timestamp(dt):
     """Converts a datetime object to UTC timestamp
