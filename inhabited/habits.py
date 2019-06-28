@@ -34,11 +34,15 @@ def index():
         for c in completions
     ]
 
+    to_complete = [
+        not p[0] for p in periods
+    ]
+
     # Do the conversion logic here to turn timestamps into completion data -
     # probably will need a separate module in which I do these conversions based
     # on the current date, then pass to the templating engine etc
 
-    return render_template('habits/index.html', data=zip(habits, periods))
+    return render_template('habits/index.html', data=zip(habits, periods, to_complete))
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
